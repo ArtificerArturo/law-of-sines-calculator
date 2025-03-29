@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Law of Sines Calculator</title>
+      <link rel="stylesheet" href="style.css" />
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+   </head>
+
+   <body>
+      <script src="script.js" defer></script>
+
+      <div class="calculatorcontainer" id="sinesCalculator">
+         <div class="background">
+            <div><label for="input">Law of Sines Calculator</label></div>
+            <div id="inputAndDropdown">
+               <div>
+                  <label for="dropdown">Solve for:</label>
+                  <select onchange="calculateSines()" id="dropdown">
+                     <option value="alpha">alpha</option>
+                     <option value="sideA">side (a)</option>
+                     <option value="sideB">side (b)</option>
+                     <option value="beta">beta</option>
+                  </select>
+               </div>
+               <div>
+                  <label for="sideAInput">a side</label>
+                  <input onkeyup="calculateSines()" id="sideAInput" placeholder="Enter value" type="number" />
+               </div>
+               <div>
+                  <label for="sideBInput">b side</label>
+                  <input onkeyup="calculateSines()" id="sideBInput" placeholder="Enter value" type="number" />
+               </div>
+               <div>
+                  <label for="betaInput">β beta</label>
+                  <input onkeyup="calculateSines()" id="betaInput" placeholder="Enter value" type="number" />
+               </div>
+            </div>
+            <div class="info"></div>
+            <div class="result"></div>
+         </div>
+         <div id="bugLink" style="text-align: center; margin-bottom: 20px; font-size: 90%">
+            Found a bug?
+            <a
+               class="ylist"
+               href="https://airtable.com/appR7FfpamrmFpTmL/pagGUR4cIuGPtr6cm/form?prefill_Calculator=LawOfSinesCalculator&amp;hide_Calculator=true"
+               target="_blank"
+               rel="noopener"
+               >Let us know!</a
+            >
+         </div>
+      </div>
+   </body>
+</html>
