@@ -11,14 +11,10 @@ function calculateSines() {
    let sideB = sideBInput?.value
    let alpha = alphaInput?.value
    let beta = betaInput?.value
-   console.log(sideA)
-   console.log(sideB)
-   console.log(alpha)
-   console.log(beta)
-
    infoElement.innerHTML = `<math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>`
 
    if (dropdown.value == "alpha") {
+      infoElement.innerHTML += `<br><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced></math>`
       alpha = Math.asin(Math.sin(beta) * (sideA / sideB))
       resultElement.innerHTML = `α (radians) = ${resultConditioner(alpha)}`
    } else if (dropdown.value == "sideA") {
