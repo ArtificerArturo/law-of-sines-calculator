@@ -83,47 +83,39 @@ function changeFields() {
    let fieldDiv = document.createElement("div")
    fieldDiv.setAttribute("ID", "fieldDiv")
 
+   inputFields.replaceChildren()
+
    if (dropdown.value == "alpha") {
-      inputFields.replaceChildren()
       labelDiv.appendChild(sideALabel)
       labelDiv.appendChild(sideBLabel)
       labelDiv.appendChild(betaLabel)
-      inputFields.appendChild(labelDiv)
       fieldDiv.appendChild(sideAInput)
       fieldDiv.appendChild(sideBInput)
       fieldDiv.appendChild(betaInput)
-      inputFields.appendChild(fieldDiv)
    } else if (dropdown.value == "sideA") {
-      inputFields.replaceChildren()
       labelDiv.appendChild(alphaLabel)
       labelDiv.appendChild(sideBLabel)
       labelDiv.appendChild(betaLabel)
-      inputFields.appendChild(labelDiv)
       fieldDiv.appendChild(alphaInput)
       fieldDiv.appendChild(sideBInput)
       fieldDiv.appendChild(betaInput)
-      inputFields.appendChild(fieldDiv)
    } else if (dropdown.value == "sideB") {
-      inputFields.replaceChildren()
       labelDiv.appendChild(sideALabel)
       labelDiv.appendChild(alphaLabel)
       labelDiv.appendChild(betaLabel)
-      inputFields.appendChild(labelDiv)
       fieldDiv.appendChild(sideAInput)
       fieldDiv.appendChild(alphaInput)
       fieldDiv.appendChild(betaInput)
-      inputFields.appendChild(fieldDiv)
    } else if (dropdown.value == "beta") {
-      inputFields.replaceChildren()
       labelDiv.appendChild(sideALabel)
       labelDiv.appendChild(alphaLabel)
       labelDiv.appendChild(sideBLabel)
-      inputFields.appendChild(labelDiv)
       fieldDiv.appendChild(sideAInput)
       fieldDiv.appendChild(alphaInput)
       fieldDiv.appendChild(sideBInput)
-      inputFields.appendChild(fieldDiv)
    }
+   inputFields.appendChild(labelDiv)
+   inputFields.appendChild(fieldDiv)
    resultElement.innerHTML = ""
 }
 
