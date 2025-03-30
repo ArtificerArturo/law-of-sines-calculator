@@ -44,14 +44,24 @@
    flex-wrap: wrap;
 }
 
-#sinesCalculator #dropdown {
-   height: 39px;
-}
-
 #sinesCalculator math {
    display: inline-flex;
    align-items: center;
    gap: 4px;
    flex-wrap: wrap;
    row-gap: 10px;
+}
+
+#sinesCalculator #inputFields {
+   display: flex;
+   gap: 4px;
+}
+#sinesCalculator #labelDiv,
+#fieldDiv {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: left;
+   gap: 4px;
+   min-width: 48px;
 }

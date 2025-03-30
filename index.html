@@ -17,24 +17,39 @@
             <div id="inputAndDropdown">
                <div>
                   <label for="dropdown">Solve for:</label>
-                  <select onchange="calculateSines()" id="dropdown">
+                  <select onchange="changeFields()" id="dropdown">
                      <option value="alpha">alpha</option>
                      <option value="sideA">side (a)</option>
                      <option value="sideB">side (b)</option>
                      <option value="beta">beta</option>
                   </select>
                </div>
-               <div>
-                  <label for="sideAInput">a side</label>
-                  <input onkeyup="calculateSines()" id="sideAInput" placeholder="Enter value" type="number" />
-               </div>
-               <div>
-                  <label for="sideBInput">b side</label>
-                  <input onkeyup="calculateSines()" id="sideBInput" placeholder="Enter value" type="number" />
-               </div>
-               <div>
-                  <label for="betaInput">β beta</label>
-                  <input onkeyup="calculateSines()" id="betaInput" placeholder="Enter value" type="number" />
+               <div id="inputFields">
+                  <div id="labelDiv">
+                     <label for="sideAInput">a side</label>
+                     <label for="sideBInput">b side</label>
+                     <label for="betaInput">β beta</label>
+                  </div>
+                  <div id="fieldDiv">
+                     <input
+                        onkeyup="calculateSines()"
+                        id="sideAInput"
+                        placeholder="Enter value"
+                        type="number"
+                     />
+                     <input
+                        onkeyup="calculateSines()"
+                        id="sideBInput"
+                        placeholder="Enter value"
+                        type="number"
+                     />
+                     <input
+                        onkeyup="calculateSines()"
+                        id="betaInput"
+                        placeholder="Enter value"
+                        type="number"
+                     />
+                  </div>
                </div>
             </div>
             <div class="info"></div>
