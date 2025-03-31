@@ -14,43 +14,46 @@
       <div class="calculatorcontainer" id="sinesCalculator">
          <div class="background">
             <div><label for="input">Law of Sines Calculator</label></div>
-            <div id="inputAndDropdown">
-               <div>
-                  <label for="dropdown">Solve for:</label>
-                  <select onchange="changeFields()" id="dropdown">
-                     <option value="alpha">alpha</option>
-                     <option value="sideA">side (a)</option>
-                     <option value="sideB">side (b)</option>
-                     <option value="beta">beta</option>
-                  </select>
-               </div>
-               <div id="inputFields">
-                  <div id="labelDiv">
-                     <label for="sideAInput">a side</label>
-                     <label for="sideBInput">b side</label>
-                     <label for="betaInput">β beta</label>
+            <div id="imageContainer">
+               <div id="inputAndDropdown">
+                  <div>
+                     <label for="dropdown">Solve for:</label>
+                     <select onchange="changeFields()" id="dropdown">
+                        <option value="alpha">alpha</option>
+                        <option value="sideA">side (a)</option>
+                        <option value="sideB">side (b)</option>
+                        <option value="beta">beta</option>
+                     </select>
                   </div>
-                  <div id="fieldDiv">
-                     <input
-                        onkeyup="if (event.key === 'Enter') calculateSines()"
-                        id="sideAInput"
-                        placeholder="Enter value"
-                        type="number"
-                     />
-                     <input
-                        onkeyup="if (event.key === 'Enter') calculateSines()"
-                        id="sideBInput"
-                        placeholder="Enter value"
-                        type="number"
-                     />
-                     <input
-                        onkeyup="if (event.key === 'Enter') calculateSines()"
-                        id="betaInput"
-                        placeholder="Enter value"
-                        type="number"
-                     />
+                  <div id="inputFields">
+                     <div id="labelDiv">
+                        <label for="sideAInput">a side</label>
+                        <label for="sideBInput">b side</label>
+                        <label for="betaInput">β beta</label>
+                     </div>
+                     <div id="fieldDiv">
+                        <input
+                           onkeyup="if (event.key === 'Enter') calculateSines()"
+                           id="sideAInput"
+                           placeholder="Enter value"
+                           type="number"
+                        />
+                        <input
+                           onkeyup="if (event.key === 'Enter') calculateSines()"
+                           id="sideBInput"
+                           placeholder="Enter value"
+                           type="number"
+                        />
+                        <input
+                           onkeyup="if (event.key === 'Enter') calculateSines()"
+                           id="betaInput"
+                           placeholder="Enter value"
+                           type="number"
+                        />
+                     </div>
                   </div>
                </div>
+               <div id="image"></div>
             </div>
             <div class="info"></div>
             <div class="result"></div>

@@ -12,17 +12,21 @@ function calculateSines() {
    let alpha = alphaInput?.value
    let beta = betaInput?.value
    let intermediate = 0
-   infoElement.innerHTML =
-      "The equation we'll use is:<br><math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>"
+
+   let info1 = document.createElement("div")
+   let info2 = document.createElement("div")
+   let info3 = document.createElement("div")
+   let info4 = document.createElement("div")
 
    if (dropdown.value == "alpha") {
-      alpha = Math.asin(Math.sin(beta) * (sideA / sideB))
-      intermediate = Math.sin(beta) * (sideA / sideB)
-      let explanation = document.createElement("div")
-      explanation.innerHTML += `Solving for alpha:<br><math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>${beta}</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideA}</mi><mi>${sideB}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+      alpha = Math.asin(Math.sin(degreetoRad(beta)) * (sideA / sideB))
+      intermediate = Math.sin(degreetoRad(beta)) * (sideA / sideB)
+      info3.innerHTML = "Solving for alpha:"
+      info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideA}</mi><mi>${sideB}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
          intermediate
-      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(alpha)}</mi><mo>&#xb0;</mo></math>`
-      infoElement.appendChild(explanation)
+      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
+         radToDegree(alpha)
+      )}<mo>&#xb0;</mo></mi></math>`
       resultElement.innerHTML = `α (radians) = ${resultConditioner(alpha)}`
    } else if (dropdown.value == "sideA") {
       sideA = sideB * (Math.sin(alpha) / Math.sin(beta))
@@ -34,6 +38,16 @@ function calculateSines() {
       beta = Math.asin(Math.sin(alpha) * (sideB / sideA))
       resultElement.innerHTML = `β (radians) = ${resultConditioner(beta)}`
    }
+
+   info1.innerHTML = "The equation we'll use is:"
+   info2.innerHTML =
+      "<math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>"
+
+   infoElement.appendChild(info1)
+   infoElement.appendChild(info2)
+   infoElement.appendChild(info3)
+   infoElement.appendChild(info4)
+
    MathJax.typesetPromise()
 }
 
@@ -138,4 +152,12 @@ function resultConditioner(result) {
 function numberWithCommas(number) {
    //taken from SO. Worked better than .toLocaleString()
    return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+}
+
+function degreetoRad(number) {
+   return number * (Math.PI / 180)
+}
+
+function radToDegree(number) {
+   return number * (180 / Math.PI)
 }
