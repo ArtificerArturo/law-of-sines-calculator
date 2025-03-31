@@ -8,6 +8,23 @@
    gap: 10px;
 }
 
+#sinesCalculator .calculate {
+   background-color: #fc0;
+   color: #333;
+   font-weight: 700;
+   border-radius: 8px;
+   border: 1px solid #cbcbcb;
+   padding: 10px 20px;
+   display: inline-block;
+   transition: 0.1s;
+   text-decoration: none;
+}
+
+#sinesCalculator .calculate:hover {
+   background-color: #666;
+   color: #fff;
+}
+
 #sinesCalculator {
    max-width: 400px;
    margin: 0 auto;
@@ -44,7 +61,8 @@
    flex-wrap: wrap;
 }
 
-#sinesCalculator math {
+#sinesCalculator mjx-math,
+math {
    display: inline-flex;
    align-items: center;
    gap: 4px;

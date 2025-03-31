@@ -11,11 +11,18 @@ function calculateSines() {
    let sideB = sideBInput?.value
    let alpha = alphaInput?.value
    let beta = betaInput?.value
-   infoElement.innerHTML = `<math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>`
+   let intermediate = 0
+   infoElement.innerHTML =
+      "The equation we'll use is:<br><math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>"
 
    if (dropdown.value == "alpha") {
-      infoElement.innerHTML += `<br><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced></math>`
       alpha = Math.asin(Math.sin(beta) * (sideA / sideB))
+      intermediate = Math.sin(beta) * (sideA / sideB)
+      let explanation = document.createElement("div")
+      explanation.innerHTML += `Solving for alpha:<br><math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>${beta}</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideA}</mi><mi>${sideB}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+         intermediate
+      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(alpha)}</mi><mo>&#xb0;</mo></math>`
+      infoElement.appendChild(explanation)
       resultElement.innerHTML = `α (radians) = ${resultConditioner(alpha)}`
    } else if (dropdown.value == "sideA") {
       sideA = sideB * (Math.sin(alpha) / Math.sin(beta))
@@ -27,6 +34,7 @@ function calculateSines() {
       beta = Math.asin(Math.sin(alpha) * (sideB / sideA))
       resultElement.innerHTML = `β (radians) = ${resultConditioner(beta)}`
    }
+   MathJax.typesetPromise()
 }
 
 function changeFields() {
@@ -42,7 +50,7 @@ function changeFields() {
    sideAInput.setAttribute("type", "number")
    sideAInput.setAttribute("placeholder", "Enter value")
    sideAInput.setAttribute("ID", "sideAInput")
-   sideAInput.setAttribute("onkeyup", "calculateSines()")
+   sideAInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
    let sideBLabel = document.createElement("label")
    sideBLabel.setAttribute("for", "sideBInput")
@@ -52,7 +60,7 @@ function changeFields() {
    sideBInput.setAttribute("type", "number")
    sideBInput.setAttribute("placeholder", "Enter value")
    sideBInput.setAttribute("ID", "sideBInput")
-   sideBInput.setAttribute("onkeyup", "calculateSines()")
+   sideBInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
    let alphaLabel = document.createElement("label")
    alphaLabel.setAttribute("for", "alphaInput")
@@ -62,7 +70,7 @@ function changeFields() {
    alphaInput.setAttribute("type", "number")
    alphaInput.setAttribute("placeholder", "Enter value")
    alphaInput.setAttribute("ID", "alphaInput")
-   alphaInput.setAttribute("onkeyup", "calculateSines()")
+   alphaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
    let betaLabel = document.createElement("label")
    betaLabel.setAttribute("for", "betaInput")
@@ -72,7 +80,7 @@ function changeFields() {
    betaInput.setAttribute("type", "number")
    betaInput.setAttribute("placeholder", "Enter value")
    betaInput.setAttribute("ID", "betaInput")
-   betaInput.setAttribute("onkeyup", "calculateSines()")
+   betaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
    let labelDiv = document.createElement("div")
    labelDiv.setAttribute("ID", "labelDiv")
@@ -113,6 +121,7 @@ function changeFields() {
    inputFields.appendChild(labelDiv)
    inputFields.appendChild(fieldDiv)
    resultElement.innerHTML = ""
+   infoElement.innerHTML = ""
 }
 
 function resultConditioner(result) {
