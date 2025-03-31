@@ -90,3 +90,12 @@ math {
    flex-direction: column;
    gap: 10px;
 }
+
+#sinesCalculator #imageContainer {
+   display: flex;
+   gap: 10px;
+}
+
+#sinesCalculator #triangleImage {
+   height: 60%;
+}
