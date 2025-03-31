@@ -19,6 +19,7 @@ function calculateSines() {
    let info4 = document.createElement("div")
 
    //clear any previous answers or error messages
+   infoElement.style.color = "black"
    resultElement.innerHTML = ""
    infoElement.innerHTML = ""
 
@@ -40,10 +41,18 @@ function calculateSines() {
       infoElement.innerHTML += `Please use a value between 0 and 180° for angle β.<br>`
       issueCount++
    }
-   if (issueCount > 0) return
+   if (issueCount > 0) {
+      infoElement.style.color = "red"
+      return
+   }
 
    if (dropdown.value == "alpha") {
       alpha = Math.asin(Math.sin(degreetoRad(beta)) * (sideA / sideB))
+      if (isNaN(alpha)) {
+         infoElement.style.color = "red"
+         infoElement.innerHTML += "There is no valid solution for α with these input values."
+         return
+      }
       intermediate = Math.sin(degreetoRad(beta)) * (sideA / sideB)
       info3.innerHTML = "Solving for alpha and plugging in our values:"
       info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideA}</mi><mi>${sideB}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
@@ -72,6 +81,11 @@ function calculateSines() {
       resultElement.innerHTML = `Side b = ${resultConditioner(sideB)}`
    } else if (dropdown.value == "beta") {
       beta = Math.asin(Math.sin(degreetoRad(alpha)) * (sideB / sideA))
+      if (isNaN(beta)) {
+         infoElement.style.color = "red"
+         infoElement.innerHTML += "There is no valid solution for β with these input values."
+         return
+      }
       intermediate = Math.sin(degreetoRad(alpha) * (sideB / sideA))
       info3.innerHTML = "Solving for beta and plugging in our values:"
       info4.innerHTML = `<math><mi>&#x3b2;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mrow><mi>${alpha}</mi><mo>&#xb0;</mo></mrow></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideB}</mi><mi>${sideA}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
