@@ -1,24 +1,45 @@
 function calculateSines() {
    const dropdown = document.querySelector("#sinesCalculator #dropdown")
-   const resultElement = document.querySelector("#sinesCalculator .result")
-   const infoElement = document.querySelector("#sinesCalculator .info")
    const sideAInput = document.querySelector("#sinesCalculator #sideAInput")
    const sideBInput = document.querySelector("#sinesCalculator #sideBInput")
    const alphaInput = document.querySelector("#sinesCalculator #alphaInput")
    const betaInput = document.querySelector("#sinesCalculator #betaInput")
+   const infoElement = document.querySelector("#sinesCalculator .info")
+   const resultElement = document.querySelector("#sinesCalculator .result")
 
    let sideA = sideAInput?.value
    let sideB = sideBInput?.value
    let alpha = alphaInput?.value
    let beta = betaInput?.value
    let intermediate = 0
-   resultElement.innerHTML = ""
-   infoElement.innerHTML = ""
-
+   let issueCount = 0
    let info1 = document.createElement("div")
    let info2 = document.createElement("div")
    let info3 = document.createElement("div")
    let info4 = document.createElement("div")
+
+   //clear any previous answers or error messages
+   resultElement.innerHTML = ""
+   infoElement.innerHTML = ""
+
+   //check for invalid input
+   if (sideA <= 0) {
+      infoElement.innerHTML += `Please use a positive value for side a.<br>`
+      issueCount++
+   }
+   if (sideB <= 0) {
+      infoElement.innerHTML += `Please use a positive value for side b.<br>`
+      issueCount++
+   }
+   if (alpha <= 0 || alpha >= 180) {
+      infoElement.innerHTML += `Please use a value between 0 and 180 degrees for angle alpha.<br>`
+      issueCount++
+   }
+   if (beta <= 0 || beta >= 180) {
+      infoElement.innerHTML += `Please use a value between 0 and 180 degrees for angle beta.<br>`
+      issueCount++
+   }
+   if (issueCount > 0) return
 
    if (dropdown.value == "alpha") {
       alpha = Math.asin(Math.sin(degreetoRad(beta)) * (sideA / sideB))
@@ -69,7 +90,7 @@ function calculateSines() {
    infoElement.appendChild(info3)
    infoElement.appendChild(info4)
 
-   MathJax.typesetPromise()
+   MathJax.typesetPromise() //style all new mathml because mathjax otherwise only runs on page load
 }
 
 function changeFields() {
