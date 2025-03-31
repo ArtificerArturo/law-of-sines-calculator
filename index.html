@@ -13,46 +13,50 @@
 
       <div class="calculatorcontainer" id="sinesCalculator">
          <div class="background">
-            <div><label for="input">Law of Sines Calculator</label></div>
+            <div id="title">Law of Sines Calculator</div>
+            <div id="selectAndResult">
+               <div>
+                  <label for="dropdown">Solve for:</label>
+                  <select onchange="changeFields()" id="dropdown">
+                     <option value="alpha">alpha</option>
+                     <option value="sideA">side (a)</option>
+                     <option value="sideB">side (b)</option>
+                     <option value="beta">beta</option>
+                  </select>
+               </div>
+               <div class="result"></div>
+            </div>
             <div id="imageContainer">
-               <div id="inputAndDropdown">
-                  <div>
-                     <label for="dropdown">Solve for:</label>
-                     <select onchange="changeFields()" id="dropdown">
-                        <option value="alpha">alpha</option>
-                        <option value="sideA">side (a)</option>
-                        <option value="sideB">side (b)</option>
-                        <option value="beta">beta</option>
-                     </select>
+               <div id="inputFields">
+                  <div class="labelInputCombo">
+                     <label for="sideAInput">a side</label>
+                     <input
+                        onkeyup="if (event.key === 'Enter') calculateSines()"
+                        id="sideAInput"
+                        placeholder="Enter value"
+                        type="number"
+                     />
                   </div>
-                  <div id="inputFields">
-                     <div id="labelDiv">
-                        <label for="sideAInput">a side</label>
-                        <label for="sideBInput">b side</label>
-                        <label for="betaInput">β beta</label>
-                     </div>
-                     <div id="fieldDiv">
-                        <input
-                           onkeyup="if (event.key === 'Enter') calculateSines()"
-                           id="sideAInput"
-                           placeholder="Enter value"
-                           type="number"
-                        />
-                        <input
-                           onkeyup="if (event.key === 'Enter') calculateSines()"
-                           id="sideBInput"
-                           placeholder="Enter value"
-                           type="number"
-                        />
-                        <input
-                           onkeyup="if (event.key === 'Enter') calculateSines()"
-                           id="betaInput"
-                           placeholder="Enter value"
-                           type="number"
-                        />
-                     </div>
+                  <div class="labelInputCombo">
+                     <label for="sideBInput">b side</label>
+                     <input
+                        onkeyup="if (event.key === 'Enter') calculateSines()"
+                        id="sideBInput"
+                        placeholder="Enter value"
+                        type="number"
+                     />
+                  </div>
+                  <div class="labelInputCombo">
+                     <label for="betaInput">β beta</label>
+                     <input
+                        onkeyup="if (event.key === 'Enter') calculateSines()"
+                        id="betaInput"
+                        placeholder="Enter value"
+                        type="number"
+                     />
                   </div>
                </div>
+
                <div id="image">
                   <img
                      src="lawOfSinesTriangle.png"
@@ -63,7 +67,6 @@
                </div>
             </div>
             <div class="info"></div>
-            <div class="result"></div>
             <div>
                <button class="calculate" onclick="calculateSines()" data-uw-rm-kbnav="click">
                   Calculate

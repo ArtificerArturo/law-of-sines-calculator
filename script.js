@@ -12,6 +12,8 @@ function calculateSines() {
    let alpha = alphaInput?.value
    let beta = betaInput?.value
    let intermediate = 0
+   resultElement.innerHTML = ""
+   infoElement.innerHTML = ""
 
    let info1 = document.createElement("div")
    let info2 = document.createElement("div")
@@ -21,7 +23,7 @@ function calculateSines() {
    if (dropdown.value == "alpha") {
       alpha = Math.asin(Math.sin(degreetoRad(beta)) * (sideA / sideB))
       intermediate = Math.sin(degreetoRad(beta)) * (sideA / sideB)
-      info3.innerHTML = "Solving for alpha:"
+      info3.innerHTML = "Solving for alpha and plugging in our values:"
       info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideA}</mi><mi>${sideB}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
          intermediate
       )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
@@ -29,13 +31,32 @@ function calculateSines() {
       )}<mo>&#xb0;</mo></mi></math>`
       resultElement.innerHTML = `α (radians) = ${resultConditioner(alpha)}`
    } else if (dropdown.value == "sideA") {
-      sideA = sideB * (Math.sin(alpha) / Math.sin(beta))
+      sideA = sideB * (Math.sin(degreetoRad(alpha)) / Math.sin(degreetoRad(beta)))
+      info3.innerHTML = "Plugging in our values:"
+      info4.innerHTML = `<math><mi>a</mi><mo>=</mo><mi>${sideB}</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
+         degreetoRad(alpha)
+      )}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
+         degreetoRad(beta)
+      )}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
+         sideA
+      )}</mn></math>`
       resultElement.innerHTML = `Side a = ${resultConditioner(sideA)}`
    } else if (dropdown.value == "sideB") {
-      sideB = sideA * (Math.sin(beta) / Math.sin(alpha))
+      sideB = sideA * (Math.sin(degreetoRad(beta)) / Math.sin(degreetoRad(alpha)))
+      info3.innerHTML = "Solving for b and plugging in our values:"
+      info4.innerHTML = `<math><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow></mfrac><mo>=</mo><mi>${sideA}</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${alpha}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
+         sideB
+      )}</mn></math>`
       resultElement.innerHTML = `Side b = ${resultConditioner(sideB)}`
    } else if (dropdown.value == "beta") {
-      beta = Math.asin(Math.sin(alpha) * (sideB / sideA))
+      beta = Math.asin(Math.sin(degreetoRad(alpha)) * (sideB / sideA))
+      intermediate = Math.sin(degreetoRad(alpha) * (sideB / sideA))
+      info3.innerHTML = "Solving for beta and plugging in our values:"
+      info4.innerHTML = `<math><mi>&#x3b2;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mrow><mi>${alpha}</mi><mo>&#xb0;</mo></mrow></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideB}</mi><mi>${sideA}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+         intermediate
+      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
+         radToDegree(beta)
+      )}<mo>&#xb0;</mo></mi></math>`
       resultElement.innerHTML = `β (radians) = ${resultConditioner(beta)}`
    }
 
@@ -55,6 +76,7 @@ function changeFields() {
    const inputFields = document.querySelector("#sinesCalculator #inputFields")
    const dropdown = document.querySelector("#sinesCalculator #dropdown")
    const resultElement = document.querySelector("#sinesCalculator .result")
+   const infoElement = document.querySelector("#sinesCalculator .info")
 
    let sideALabel = document.createElement("label")
    sideALabel.setAttribute("for", "sideAInput")
@@ -66,6 +88,11 @@ function changeFields() {
    sideAInput.setAttribute("ID", "sideAInput")
    sideAInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
+   let sideACombo = document.createElement("div")
+   sideACombo.setAttribute("class", "labelInputCombo")
+   sideACombo.appendChild(sideALabel)
+   sideACombo.appendChild(sideAInput)
+
    let sideBLabel = document.createElement("label")
    sideBLabel.setAttribute("for", "sideBInput")
    sideBLabel.textContent = "b side"
@@ -75,6 +102,11 @@ function changeFields() {
    sideBInput.setAttribute("placeholder", "Enter value")
    sideBInput.setAttribute("ID", "sideBInput")
    sideBInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+
+   let sideBCombo = document.createElement("div")
+   sideBCombo.setAttribute("class", "labelInputCombo")
+   sideBCombo.appendChild(sideBLabel)
+   sideBCombo.appendChild(sideBInput)
 
    let alphaLabel = document.createElement("label")
    alphaLabel.setAttribute("for", "alphaInput")
@@ -86,6 +118,11 @@ function changeFields() {
    alphaInput.setAttribute("ID", "alphaInput")
    alphaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
+   let alphaCombo = document.createElement("div")
+   alphaCombo.setAttribute("class", "labelInputCombo")
+   alphaCombo.appendChild(alphaLabel)
+   alphaCombo.appendChild(alphaInput)
+
    let betaLabel = document.createElement("label")
    betaLabel.setAttribute("for", "betaInput")
    betaLabel.textContent = "β beta"
@@ -96,44 +133,30 @@ function changeFields() {
    betaInput.setAttribute("ID", "betaInput")
    betaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
 
-   let labelDiv = document.createElement("div")
-   labelDiv.setAttribute("ID", "labelDiv")
-   let fieldDiv = document.createElement("div")
-   fieldDiv.setAttribute("ID", "fieldDiv")
+   let betaCombo = document.createElement("div")
+   betaCombo.setAttribute("class", "labelInputCombo")
+   betaCombo.appendChild(betaLabel)
+   betaCombo.appendChild(betaInput)
 
    inputFields.replaceChildren()
 
    if (dropdown.value == "alpha") {
-      labelDiv.appendChild(sideALabel)
-      labelDiv.appendChild(sideBLabel)
-      labelDiv.appendChild(betaLabel)
-      fieldDiv.appendChild(sideAInput)
-      fieldDiv.appendChild(sideBInput)
-      fieldDiv.appendChild(betaInput)
+      inputFields.appendChild(sideACombo)
+      inputFields.appendChild(sideBCombo)
+      inputFields.appendChild(betaCombo)
    } else if (dropdown.value == "sideA") {
-      labelDiv.appendChild(alphaLabel)
-      labelDiv.appendChild(sideBLabel)
-      labelDiv.appendChild(betaLabel)
-      fieldDiv.appendChild(alphaInput)
-      fieldDiv.appendChild(sideBInput)
-      fieldDiv.appendChild(betaInput)
+      inputFields.appendChild(alphaCombo)
+      inputFields.appendChild(sideBCombo)
+      inputFields.appendChild(betaCombo)
    } else if (dropdown.value == "sideB") {
-      labelDiv.appendChild(sideALabel)
-      labelDiv.appendChild(alphaLabel)
-      labelDiv.appendChild(betaLabel)
-      fieldDiv.appendChild(sideAInput)
-      fieldDiv.appendChild(alphaInput)
-      fieldDiv.appendChild(betaInput)
+      inputFields.appendChild(sideACombo)
+      inputFields.appendChild(alphaCombo)
+      inputFields.appendChild(betaCombo)
    } else if (dropdown.value == "beta") {
-      labelDiv.appendChild(sideALabel)
-      labelDiv.appendChild(alphaLabel)
-      labelDiv.appendChild(sideBLabel)
-      fieldDiv.appendChild(sideAInput)
-      fieldDiv.appendChild(alphaInput)
-      fieldDiv.appendChild(sideBInput)
+      inputFields.appendChild(sideACombo)
+      inputFields.appendChild(alphaCombo)
+      inputFields.appendChild(sideBCombo)
    }
-   inputFields.appendChild(labelDiv)
-   inputFields.appendChild(fieldDiv)
    resultElement.innerHTML = ""
    infoElement.innerHTML = ""
 }
@@ -142,9 +165,9 @@ function resultConditioner(result) {
    //Intelligent rounding. Results with only decimal component need sig figs,
    //results greater than 1 do not
    if (result < 1 && result > -1) {
-      result = numberWithCommas(+result.toPrecision(4))
+      result = numberWithCommas(+result.toPrecision(3))
    } else {
-      result = numberWithCommas(+result.toFixed(4))
+      result = numberWithCommas(+result.toFixed(3))
    }
    return result
 }
