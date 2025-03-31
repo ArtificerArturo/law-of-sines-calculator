@@ -15,7 +15,7 @@
          <div class="background">
             <div id="title">Law of Sines Calculator</div>
             <div id="selectAndResult">
-               <div>
+               <div id="dropdownDiv">
                   <label for="dropdown">Solve for:</label>
                   <select onchange="changeFields()" id="dropdown">
                      <option value="alpha">alpha</option>
@@ -24,7 +24,9 @@
                      <option value="beta">beta</option>
                   </select>
                </div>
-               <div class="result"></div>
+               <div id="resultDiv">
+                  <div class="result"></div>
+               </div>
             </div>
             <div id="imageContainer">
                <div id="inputFields">

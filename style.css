@@ -15,12 +15,28 @@
 
 #sinesCalculator #selectAndResult {
    display: flex;
-   justify-content: left;
+   width: 100%;
+   justify-content: center;
+}
+
+#sinesCalculator #dropdownDiv {
+   display: flex;
+   justify-content: flex-start;
+   width: 50%;
+   gap: 4px;
+}
+
+#sinesCalculator #resultDiv {
+   display: flex;
+   justify-content: center;
+   width: 50%;
 }
 
 #sinesCalculator .result {
    font-weight: 700;
    text-wrap: wrap;
+   display: flex;
+   justify-content: center;
 }
 
 #sinesCalculator input {

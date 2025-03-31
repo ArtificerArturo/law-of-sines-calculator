@@ -23,6 +23,7 @@ function calculateSines() {
    infoElement.innerHTML = ""
 
    //check for invalid input
+   //these only appear in a set order, irrespective of the input field order
    if (sideA <= 0) {
       infoElement.innerHTML += `Please use a positive value for side a.<br>`
       issueCount++
@@ -32,11 +33,11 @@ function calculateSines() {
       issueCount++
    }
    if (alpha <= 0 || alpha >= 180) {
-      infoElement.innerHTML += `Please use a value between 0 and 180 degrees for angle alpha.<br>`
+      infoElement.innerHTML += `Please use a value between 0 and 180° for angle α.<br>`
       issueCount++
    }
    if (beta <= 0 || beta >= 180) {
-      infoElement.innerHTML += `Please use a value between 0 and 180 degrees for angle beta.<br>`
+      infoElement.innerHTML += `Please use a value between 0 and 180° for angle β.<br>`
       issueCount++
    }
    if (issueCount > 0) return
@@ -50,7 +51,7 @@ function calculateSines() {
       )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
          radToDegree(alpha)
       )}<mo>&#xb0;</mo></mi></math>`
-      resultElement.innerHTML = `α (radians) = ${resultConditioner(alpha)}`
+      resultElement.innerHTML = `α = ${resultConditioner(radToDegree(alpha))}°`
    } else if (dropdown.value == "sideA") {
       sideA = sideB * (Math.sin(degreetoRad(alpha)) / Math.sin(degreetoRad(beta)))
       info3.innerHTML = "Plugging in our values:"
@@ -78,7 +79,7 @@ function calculateSines() {
       )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
          radToDegree(beta)
       )}<mo>&#xb0;</mo></mi></math>`
-      resultElement.innerHTML = `β (radians) = ${resultConditioner(beta)}`
+      resultElement.innerHTML = `β = ${resultConditioner(radToDegree(beta))}°`
    }
 
    info1.innerHTML = "The equation we'll use is:"
@@ -182,15 +183,15 @@ function changeFields() {
    infoElement.innerHTML = ""
 }
 
-function resultConditioner(result) {
+function resultConditioner(number) {
    //Intelligent rounding. Results with only decimal component need sig figs,
    //results greater than 1 do not
-   if (result < 1 && result > -1) {
-      result = numberWithCommas(+result.toPrecision(3))
+   if (number < 1 && number > -1) {
+      number = numberWithCommas(+number.toPrecision(2))
    } else {
-      result = numberWithCommas(+result.toFixed(3))
+      number = numberWithCommas(+number.toFixed(2))
    }
-   return result
+   return number
 }
 
 function numberWithCommas(number) {
