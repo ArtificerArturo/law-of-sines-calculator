@@ -26,7 +26,7 @@
    display: flex;
    justify-content: flex-start;
    width: 50%;
-   gap: 4px;
+   gap: 8px;
 }
 
 #sinesCalculator #resultDiv {
@@ -71,10 +71,6 @@
    align-items: center;
    flex-wrap: wrap;
    gap: 10px;
-}
-
-#sinesCalculator #triangleImage {
-   height: 60%;
 }
 
 #sinesCalculator .info {
