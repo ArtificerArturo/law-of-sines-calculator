@@ -123,6 +123,7 @@ function changeFields() {
    sideAInput.setAttribute("placeholder", "Enter value")
    sideAInput.setAttribute("ID", "sideAInput")
    sideAInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   sideAInput.setAttribute("onclick", "changeImage('SideABlue.svg')")
 
    let sideACombo = document.createElement("div")
    sideACombo.setAttribute("class", "labelInputCombo")
@@ -138,6 +139,7 @@ function changeFields() {
    sideBInput.setAttribute("placeholder", "Enter value")
    sideBInput.setAttribute("ID", "sideBInput")
    sideBInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   sideBInput.setAttribute("onclick", "changeImage('SideBBlue.svg')")
 
    let sideBCombo = document.createElement("div")
    sideBCombo.setAttribute("class", "labelInputCombo")
@@ -153,6 +155,7 @@ function changeFields() {
    alphaInput.setAttribute("placeholder", "Enter value")
    alphaInput.setAttribute("ID", "alphaInput")
    alphaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   alphaInput.setAttribute("onclick", "changeImage('AngleAlphaBlue.svg')")
 
    let alphaCombo = document.createElement("div")
    alphaCombo.setAttribute("class", "labelInputCombo")
@@ -168,6 +171,7 @@ function changeFields() {
    betaInput.setAttribute("placeholder", "Enter value")
    betaInput.setAttribute("ID", "betaInput")
    betaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   betaInput.setAttribute("onclick", "changeImage('AngleBetaBlue.svg')")
 
    let betaCombo = document.createElement("div")
    betaCombo.setAttribute("class", "labelInputCombo")
@@ -195,6 +199,12 @@ function changeFields() {
    }
    resultElement.innerHTML = ""
    infoElement.innerHTML = ""
+   changeImage('Blank.svg')
+}
+
+function changeImage(fileName) {
+   const image = document.querySelector("#sinesCalculator #image img")
+   image.setAttribute("src", fileName)
 }
 
 function resultConditioner(number) {

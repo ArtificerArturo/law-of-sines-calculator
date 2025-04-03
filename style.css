@@ -1,5 +1,5 @@
 #sinesCalculator {
-   max-width: 430px;
+   max-width: 500px;
    margin: 0 auto;
    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -56,7 +56,7 @@
 }
 
 #sinesCalculator label {
-   min-width: 60px;
+   min-width: 65px;
 }
 
 #sinesCalculator .labelInputCombo {
@@ -70,13 +70,17 @@
    display: flex;
    align-items: center;
    flex-wrap: wrap;
-   gap: 10px;
+   gap: 20px;
 }
 
 #sinesCalculator .info {
    display: flex;
    flex-direction: column;
    gap: 10px;
+}
+
+#sinesCalculator img {
+   width: 240px;
 }
 
 #sinesCalculator mjx-math,
@@ -110,6 +114,7 @@ math {
    padding: 10px;
    text-align: left;
 }
+
 /* do not bring to wordpress below this line */
 #sinesCalculator a {
    text-decoration: underline;
