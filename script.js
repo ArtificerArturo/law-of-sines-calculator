@@ -106,6 +106,7 @@ function calculateSines() {
    infoElement.appendChild(info4)
 
    MathJax.typesetPromise() //style all new mathml because mathjax otherwise only runs on page load
+   changeImage('Blank.svg')
 }
 
 function changeFields() {
@@ -123,7 +124,7 @@ function changeFields() {
    sideAInput.setAttribute("placeholder", "Enter value")
    sideAInput.setAttribute("ID", "sideAInput")
    sideAInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
-   sideAInput.setAttribute("onclick", "changeImage('SideABlue.svg')")
+   sideAInput.setAttribute("onfocus", "changeImage('SideABlue.svg')")
 
    let sideACombo = document.createElement("div")
    sideACombo.setAttribute("class", "labelInputCombo")
@@ -139,7 +140,7 @@ function changeFields() {
    sideBInput.setAttribute("placeholder", "Enter value")
    sideBInput.setAttribute("ID", "sideBInput")
    sideBInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
-   sideBInput.setAttribute("onclick", "changeImage('SideBBlue.svg')")
+   sideBInput.setAttribute("onfocus", "changeImage('SideBBlue.svg')")
 
    let sideBCombo = document.createElement("div")
    sideBCombo.setAttribute("class", "labelInputCombo")
@@ -155,7 +156,7 @@ function changeFields() {
    alphaInput.setAttribute("placeholder", "Enter value")
    alphaInput.setAttribute("ID", "alphaInput")
    alphaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
-   alphaInput.setAttribute("onclick", "changeImage('AngleAlphaBlue.svg')")
+   alphaInput.setAttribute("onfocus", "changeImage('AngleAlphaBlue.svg')")
 
    let alphaCombo = document.createElement("div")
    alphaCombo.setAttribute("class", "labelInputCombo")
@@ -171,7 +172,7 @@ function changeFields() {
    betaInput.setAttribute("placeholder", "Enter value")
    betaInput.setAttribute("ID", "betaInput")
    betaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
-   betaInput.setAttribute("onclick", "changeImage('AngleBetaBlue.svg')")
+   betaInput.setAttribute("onfocus", "changeImage('AngleBetaBlue.svg')")
 
    let betaCombo = document.createElement("div")
    betaCombo.setAttribute("class", "labelInputCombo")
