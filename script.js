@@ -7,10 +7,10 @@ function calculateSines() {
    const infoElement = document.querySelector("#sinesCalculator .info")
    const resultElement = document.querySelector("#sinesCalculator .result")
 
-   let sideA = sideAInput?.value
-   let sideB = sideBInput?.value
-   let alpha = alphaInput?.value
-   let beta = betaInput?.value
+   let sideA = parseFloat(sideAInput?.value)
+   let sideB = parseFloat(sideBInput?.value)
+   let alpha = parseFloat(alphaInput?.value)
+   let beta = parseFloat(betaInput?.value)
    let intermediate = 0
    let issueCount = 0
    let info1 = document.createElement("div")
@@ -24,22 +24,46 @@ function calculateSines() {
    infoElement.innerHTML = ""
 
    //check for invalid input
-   //these only appear in a set order, irrespective of the input field order
-   if (sideA <= 0) {
-      infoElement.innerHTML += `Please use a positive value for side a.<br>`
-      issueCount++
+   if (dropdown.value == "alpha") {
+      checkSideA()
+      checkSideB()
+      checkBeta()
+   } else if (dropdown.value == "sideA") {
+      checkAlpha()
+      checkSideB()
+      checkBeta()
+   } else if (dropdown.value == "sideB") {
+      checkSideA()
+      checkAlpha()
+      checkBeta()
+   } else if (dropdown.value == "beta") {
+      checkSideA()
+      checkAlpha()
+      checkSideB()
    }
-   if (sideB <= 0) {
-      infoElement.innerHTML += `Please use a positive value for side b.<br>`
-      issueCount++
+   function checkSideA() {
+      if (isNaN(sideA) || sideA <= 0) {
+         infoElement.innerHTML += `Please use a positive value for side a.<br>`
+         issueCount++
+      }
    }
-   if (alpha <= 0 || alpha >= 180) {
-      infoElement.innerHTML += `Please use a value between 0 and 180° for angle α.<br>`
-      issueCount++
+   function checkSideB() {
+      if (isNaN(sideB) || sideB <= 0) {
+         infoElement.innerHTML += `Please use a positive value for side b.<br>`
+         issueCount++
+      }
    }
-   if (beta <= 0 || beta >= 180) {
-      infoElement.innerHTML += `Please use a value between 0 and 180° for angle β.<br>`
-      issueCount++
+   function checkAlpha() {
+      if (isNaN(alpha) || alpha <= 0 || alpha >= 180) {
+         infoElement.innerHTML += `Please use a value between 0 and 180° for angle α.<br>`
+         issueCount++
+      }
+   }
+   function checkBeta() {
+      if (isNaN(beta) || beta <= 0 || beta >= 180) {
+         infoElement.innerHTML += `Please use a value between 0 and 180° for angle β.<br>`
+         issueCount++
+      }
    }
    if (issueCount > 0) {
       infoElement.style.color = "red"
@@ -63,14 +87,14 @@ function calculateSines() {
       sideA = sideB * (Math.sin(degreetoRad(alpha)) / Math.sin(degreetoRad(beta)))
       info3.innerHTML = "Plugging in our values:"
       info4.innerHTML = `<math><mi>a</mi><mo>=</mo><mn>${sideB}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
-         parseFloat(alpha)
+         alpha
       )}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
-         parseFloat(beta)
+         beta
       )}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(sideA)}</mn></math>`
       resultElement.innerHTML = `Side a = ${resultConditioner(sideA)}`
    } else if (dropdown.value == "sideB") {
       sideB = sideA * (Math.sin(degreetoRad(beta)) / Math.sin(degreetoRad(alpha)))
-      info3.innerHTML = "Solving for b and plugging in our values:"
+      info3.innerHTML = "Solving for side b and plugging in our values:"
       info4.innerHTML = `<math><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow></mfrac><mo>=</mo><mn>${sideA}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${alpha}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
          sideB
       )}</mn></math>`
