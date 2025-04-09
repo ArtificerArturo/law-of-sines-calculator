@@ -143,7 +143,7 @@ function calculateSines() {
       infoElement.appendChild(info4)
 
       MathJax.typesetPromise() //style all new mathml because mathjax otherwise only runs on page load
-      changeImage("Blank.svg")
+      changeImage("https://www.mometrix.com/academy/wp-content/uploads/2025/04/Blank.svg")
    }
 }
 
@@ -159,10 +159,13 @@ function changeFields() {
 
    let sideAInput = document.createElement("input")
    sideAInput.setAttribute("type", "number")
-   sideAInput.setAttribute("placeholder", "Enter value")
+   sideAInput.setAttribute("placeholder", "Length")
    sideAInput.setAttribute("ID", "sideAInput")
    sideAInput.setAttribute("onkeyup", "calculateSines(event)")
-   sideAInput.setAttribute("onfocus", "changeImage('SideABlue.svg')")
+   sideAInput.setAttribute(
+      "onfocus",
+      "changeImage('https://www.mometrix.com/academy/wp-content/uploads/2025/04/SideABlue.svg')"
+   )
 
    let sideACombo = document.createElement("div")
    sideACombo.setAttribute("class", "labelInputCombo")
@@ -175,10 +178,13 @@ function changeFields() {
 
    let sideBInput = document.createElement("input")
    sideBInput.setAttribute("type", "number")
-   sideBInput.setAttribute("placeholder", "Enter value")
+   sideBInput.setAttribute("placeholder", "Length")
    sideBInput.setAttribute("ID", "sideBInput")
    sideBInput.setAttribute("onkeyup", "calculateSines(event)")
-   sideBInput.setAttribute("onfocus", "changeImage('SideBBlue.svg')")
+   sideBInput.setAttribute(
+      "onfocus",
+      "changeImage('https://www.mometrix.com/academy/wp-content/uploads/2025/04/SideBBlue.svg')"
+   )
 
    let sideBCombo = document.createElement("div")
    sideBCombo.setAttribute("class", "labelInputCombo")
@@ -191,10 +197,13 @@ function changeFields() {
 
    let alphaInput = document.createElement("input")
    alphaInput.setAttribute("type", "number")
-   alphaInput.setAttribute("placeholder", "Enter value")
+   alphaInput.setAttribute("placeholder", "Degrees")
    alphaInput.setAttribute("ID", "alphaInput")
    alphaInput.setAttribute("onkeyup", "calculateSines(event)")
-   alphaInput.setAttribute("onfocus", "changeImage('AngleAlphaBlue.svg')")
+   alphaInput.setAttribute(
+      "onfocus",
+      "changeImage('https://www.mometrix.com/academy/wp-content/uploads/2025/04/AngleAlphaBlue.svg')"
+   )
 
    let alphaCombo = document.createElement("div")
    alphaCombo.setAttribute("class", "labelInputCombo")
@@ -207,10 +216,13 @@ function changeFields() {
 
    let betaInput = document.createElement("input")
    betaInput.setAttribute("type", "number")
-   betaInput.setAttribute("placeholder", "Enter value")
+   betaInput.setAttribute("placeholder", "Degrees")
    betaInput.setAttribute("ID", "betaInput")
    betaInput.setAttribute("onkeyup", "calculateSines(event)")
-   betaInput.setAttribute("onfocus", "changeImage('AngleBetaBlue.svg')")
+   betaInput.setAttribute(
+      "onfocus",
+      "changeImage('https://www.mometrix.com/academy/wp-content/uploads/2025/04/AngleBetaBlue.svg')"
+   )
 
    let betaCombo = document.createElement("div")
    betaCombo.setAttribute("class", "labelInputCombo")
@@ -238,7 +250,7 @@ function changeFields() {
    }
    resultElement.innerHTML = ""
    infoElement.innerHTML = ""
-   changeImage("Blank.svg")
+   changeImage("https://www.mometrix.com/academy/wp-content/uploads/2025/04/Blank.svg")
 }
 
 function changeImage(fileName) {
