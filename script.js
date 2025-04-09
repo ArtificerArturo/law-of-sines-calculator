@@ -55,27 +55,23 @@ function calculateSines() {
       }
       intermediate = Math.sin(degreetoRad(beta)) * (sideA / sideB)
       info3.innerHTML = "Solving for alpha and plugging in our values:"
-      info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideA}</mi><mi>${sideB}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+      info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mn>${beta}<mo>&#xb0;</mo></mn></mfenced><mo>&#xd7;</mo><mfrac><mn>${sideA}</mn><mn>${sideB}</mn></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
          intermediate
-      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
-         radToDegree(alpha)
-      )}<mo>&#xb0;</mo></mi></math>`
+      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(radToDegree(alpha))}<mo>&#xb0;</mo></mi></math>`
       resultElement.innerHTML = `α = ${resultConditioner(radToDegree(alpha))}°`
    } else if (dropdown.value == "sideA") {
       sideA = sideB * (Math.sin(degreetoRad(alpha)) / Math.sin(degreetoRad(beta)))
       info3.innerHTML = "Plugging in our values:"
-      info4.innerHTML = `<math><mi>a</mi><mo>=</mo><mi>${sideB}</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
-         degreetoRad(alpha)
+      info4.innerHTML = `<math><mi>a</mi><mo>=</mo><mn>${sideB}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
+         parseFloat(alpha)
       )}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
-         degreetoRad(beta)
-      )}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
-         sideA
-      )}</mn></math>`
+         parseFloat(beta)
+      )}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(sideA)}</mn></math>`
       resultElement.innerHTML = `Side a = ${resultConditioner(sideA)}`
    } else if (dropdown.value == "sideB") {
       sideB = sideA * (Math.sin(degreetoRad(beta)) / Math.sin(degreetoRad(alpha)))
       info3.innerHTML = "Solving for b and plugging in our values:"
-      info4.innerHTML = `<math><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow></mfrac><mo>=</mo><mi>${sideA}</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${alpha}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
+      info4.innerHTML = `<math><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow></mfrac><mo>=</mo><mn>${sideA}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${alpha}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
          sideB
       )}</mn></math>`
       resultElement.innerHTML = `Side b = ${resultConditioner(sideB)}`
@@ -88,11 +84,9 @@ function calculateSines() {
       }
       intermediate = Math.sin(degreetoRad(alpha) * (sideB / sideA))
       info3.innerHTML = "Solving for beta and plugging in our values:"
-      info4.innerHTML = `<math><mi>&#x3b2;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mrow><mi>${alpha}</mi><mo>&#xb0;</mo></mrow></mfenced><mo>&#xd7;</mo><mfrac><mi>${sideB}</mi><mi>${sideA}</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+      info4.innerHTML = `<math><mi>&#x3b2;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mrow><mi>${alpha}</mi><mo>&#xb0;</mo></mrow></mfenced><mo>&#xd7;</mo><mfrac><mn>${sideB}</mn><mn>${sideA}</mn></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
          intermediate
-      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(
-         radToDegree(beta)
-      )}<mo>&#xb0;</mo></mi></math>`
+      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(radToDegree(beta))}<mo>&#xb0;</mo></mi></math>`
       resultElement.innerHTML = `β = ${resultConditioner(radToDegree(beta))}°`
    }
 
@@ -106,7 +100,7 @@ function calculateSines() {
    infoElement.appendChild(info4)
 
    MathJax.typesetPromise() //style all new mathml because mathjax otherwise only runs on page load
-   changeImage('Blank.svg')
+   changeImage("Blank.svg")
 }
 
 function changeFields() {
@@ -200,7 +194,7 @@ function changeFields() {
    }
    resultElement.innerHTML = ""
    infoElement.innerHTML = ""
-   changeImage('Blank.svg')
+   changeImage("Blank.svg")
 }
 
 function changeImage(fileName) {
