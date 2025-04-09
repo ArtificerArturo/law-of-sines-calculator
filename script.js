@@ -6,6 +6,7 @@ function calculateSines() {
    const betaInput = document.querySelector("#sinesCalculator #betaInput")
    const infoElement = document.querySelector("#sinesCalculator .info")
    const resultElement = document.querySelector("#sinesCalculator .result")
+   const calculateButton = document.querySelector("#sinesCalculator .calculate")
 
    let sideA = parseFloat(sideAInput?.value)
    let sideB = parseFloat(sideBInput?.value)
@@ -24,107 +25,126 @@ function calculateSines() {
    infoElement.innerHTML = ""
 
    //check for invalid input
-   if (dropdown.value == "alpha") {
+   if (event?.key === "Enter" || event?.target == calculateButton) {
+      if (dropdown.value == "alpha") {
+         checkSideA()
+         checkSideB()
+         checkBeta()
+         if (checkForErrors() == "stop") return
+      } else if (dropdown.value == "sideA") {
+         checkAlpha()
+         checkSideB()
+         checkBeta()
+         if (checkForErrors() == "stop") return
+      } else if (dropdown.value == "sideB") {
+         checkSideA()
+         checkAlpha()
+         checkBeta()
+         if (checkForErrors() == "stop") return
+      } else if (dropdown.value == "beta") {
+         checkSideA()
+         checkAlpha()
+         checkSideB()
+         if (checkForErrors() == "stop") return
+      }
+      actuallyCalculate()
+   } else {
       checkSideA()
       checkSideB()
-      checkBeta()
-   } else if (dropdown.value == "sideA") {
-      checkAlpha()
-      checkSideB()
-      checkBeta()
-   } else if (dropdown.value == "sideB") {
-      checkSideA()
       checkAlpha()
       checkBeta()
-   } else if (dropdown.value == "beta") {
-      checkSideA()
-      checkAlpha()
-      checkSideB()
+      if (issueCount == 1) actuallyCalculate()
    }
+
    function checkSideA() {
       if (isNaN(sideA) || sideA <= 0) {
-         infoElement.innerHTML += `Please use a positive value for side a.<br>`
+         info1.innerHTML += `Please use a positive value for side a.<br>`
          issueCount++
       }
    }
    function checkSideB() {
       if (isNaN(sideB) || sideB <= 0) {
-         infoElement.innerHTML += `Please use a positive value for side b.<br>`
+         info1.innerHTML += `Please use a positive value for side b.<br>`
          issueCount++
       }
    }
    function checkAlpha() {
       if (isNaN(alpha) || alpha <= 0 || alpha >= 180) {
-         infoElement.innerHTML += `Please use a value between 0 and 180° for angle α.<br>`
+         info1.innerHTML += `Please use a value between 0 and 180° for angle α.<br>`
          issueCount++
       }
    }
    function checkBeta() {
       if (isNaN(beta) || beta <= 0 || beta >= 180) {
-         infoElement.innerHTML += `Please use a value between 0 and 180° for angle β.<br>`
+         info1.innerHTML += `Please use a value between 0 and 180° for angle β.<br>`
          issueCount++
       }
    }
-   if (issueCount > 0) {
-      infoElement.style.color = "red"
-      return
+   function checkForErrors() {
+      if (issueCount > 0) {
+         infoElement.style.color = "red"
+         infoElement.appendChild(info1)
+         return "stop"
+      }
    }
 
-   if (dropdown.value == "alpha") {
-      alpha = Math.asin(Math.sin(degreetoRad(beta)) * (sideA / sideB))
-      if (isNaN(alpha)) {
-         infoElement.style.color = "red"
-         infoElement.innerHTML += "There is no valid solution for α with these input values."
-         return
+   function actuallyCalculate() {
+      if (dropdown.value == "alpha") {
+         alpha = Math.asin(Math.sin(degreetoRad(beta)) * (sideA / sideB))
+         if (isNaN(alpha)) {
+            infoElement.style.color = "red"
+            infoElement.innerHTML += "There is no valid solution for α with these input values."
+            return
+         }
+         intermediate = Math.sin(degreetoRad(beta)) * (sideA / sideB)
+         info3.innerHTML = "Solving for alpha and plugging in our values:"
+         info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mn>${beta}<mo>&#xb0;</mo></mn></mfenced><mo>&#xd7;</mo><mfrac><mn>${sideA}</mn><mn>${sideB}</mn></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+            intermediate
+         )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(radToDegree(alpha))}<mo>&#xb0;</mo></mi></math>`
+         resultElement.innerHTML = `α ≈ ${resultConditioner(radToDegree(alpha))}°`
+      } else if (dropdown.value == "sideA") {
+         sideA = sideB * (Math.sin(degreetoRad(alpha)) / Math.sin(degreetoRad(beta)))
+         info3.innerHTML = "Plugging in our values:"
+         info4.innerHTML = `<math><mi>a</mi><mo>=</mo><mn>${sideB}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
+            alpha
+         )}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
+            beta
+         )}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(sideA)}</mn></math>`
+         resultElement.innerHTML = `Side a ≈ ${resultConditioner(sideA)}`
+      } else if (dropdown.value == "sideB") {
+         sideB = sideA * (Math.sin(degreetoRad(beta)) / Math.sin(degreetoRad(alpha)))
+         info3.innerHTML = "Solving for side b and plugging in our values:"
+         info4.innerHTML = `<math><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow></mfrac><mo>=</mo><mn>${sideA}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${alpha}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
+            sideB
+         )}</mn></math>`
+         resultElement.innerHTML = `Side b ≈ ${resultConditioner(sideB)}`
+      } else if (dropdown.value == "beta") {
+         beta = Math.asin(Math.sin(degreetoRad(alpha)) * (sideB / sideA))
+         if (isNaN(beta)) {
+            infoElement.style.color = "red"
+            infoElement.innerHTML += "There is no valid solution for β with these input values."
+            return
+         }
+         intermediate = Math.sin(degreetoRad(alpha) * (sideB / sideA))
+         info3.innerHTML = "Solving for beta and plugging in our values:"
+         info4.innerHTML = `<math><mi>&#x3b2;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mrow><mi>${alpha}</mi><mo>&#xb0;</mo></mrow></mfenced><mo>&#xd7;</mo><mfrac><mn>${sideB}</mn><mn>${sideA}</mn></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
+            intermediate
+         )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(radToDegree(beta))}<mo>&#xb0;</mo></mi></math>`
+         resultElement.innerHTML = `β ≈ ${resultConditioner(radToDegree(beta))}°`
       }
-      intermediate = Math.sin(degreetoRad(beta)) * (sideA / sideB)
-      info3.innerHTML = "Solving for alpha and plugging in our values:"
-      info4.innerHTML = `<math><mi>&#x3b1;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mn>${beta}<mo>&#xb0;</mo></mn></mfenced><mo>&#xd7;</mo><mfrac><mn>${sideA}</mn><mn>${sideB}</mn></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
-         intermediate
-      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(radToDegree(alpha))}<mo>&#xb0;</mo></mi></math>`
-      resultElement.innerHTML = `α = ${resultConditioner(radToDegree(alpha))}°`
-   } else if (dropdown.value == "sideA") {
-      sideA = sideB * (Math.sin(degreetoRad(alpha)) / Math.sin(degreetoRad(beta)))
-      info3.innerHTML = "Plugging in our values:"
-      info4.innerHTML = `<math><mi>a</mi><mo>=</mo><mn>${sideB}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
-         alpha
-      )}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${resultConditioner(
-         beta
-      )}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(sideA)}</mn></math>`
-      resultElement.innerHTML = `Side a = ${resultConditioner(sideA)}`
-   } else if (dropdown.value == "sideB") {
-      sideB = sideA * (Math.sin(degreetoRad(beta)) / Math.sin(degreetoRad(alpha)))
-      info3.innerHTML = "Solving for side b and plugging in our values:"
-      info4.innerHTML = `<math><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow></mfrac><mo>=</mo><mn>${sideA}</mn><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>${alpha}<mo>&#xb0;</mo></mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>${beta}<mo>&#xb0;</mo></mi></mfenced></mrow></mfrac><mo>&#x2248;</mo><mn>${resultConditioner(
-         sideB
-      )}</mn></math>`
-      resultElement.innerHTML = `Side b = ${resultConditioner(sideB)}`
-   } else if (dropdown.value == "beta") {
-      beta = Math.asin(Math.sin(degreetoRad(alpha)) * (sideB / sideA))
-      if (isNaN(beta)) {
-         infoElement.style.color = "red"
-         infoElement.innerHTML += "There is no valid solution for β with these input values."
-         return
-      }
-      intermediate = Math.sin(degreetoRad(alpha) * (sideB / sideA))
-      info3.innerHTML = "Solving for beta and plugging in our values:"
-      info4.innerHTML = `<math><mi>&#x3b2;</mi><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced><mo>&#xd7;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mrow><mi>sin</mi><mfenced><mrow><mi>${alpha}</mi><mo>&#xb0;</mo></mrow></mfenced><mo>&#xd7;</mo><mfrac><mn>${sideB}</mn><mn>${sideA}</mn></mfrac></mrow></mfenced><mo>=</mo><msup><mi>sin</mi><mrow><mo>-</mo><mn>1</mn></mrow></msup><mfenced><mi>${resultConditioner(
-         intermediate
-      )}</mi></mfenced><mo>&#x2248;</mo><mi>${resultConditioner(radToDegree(beta))}<mo>&#xb0;</mo></mi></math>`
-      resultElement.innerHTML = `β = ${resultConditioner(radToDegree(beta))}°`
+
+      info1.innerHTML = "The equation we'll use is:"
+      info2.innerHTML =
+         "<math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>"
+
+      infoElement.appendChild(info1)
+      infoElement.appendChild(info2)
+      infoElement.appendChild(info3)
+      infoElement.appendChild(info4)
+
+      MathJax.typesetPromise() //style all new mathml because mathjax otherwise only runs on page load
+      changeImage("Blank.svg")
    }
-
-   info1.innerHTML = "The equation we'll use is:"
-   info2.innerHTML =
-      "<math><mi>a</mi><mo>=</mo><mi>b</mi><mo>&#xd7;</mo><mfrac><mrow><mi>sin</mi><mfenced><mi>&#x3b1;</mi></mfenced></mrow><mrow><mi>sin</mi><mfenced><mi>&#x3b2;</mi></mfenced></mrow></mfrac></math>"
-
-   infoElement.appendChild(info1)
-   infoElement.appendChild(info2)
-   infoElement.appendChild(info3)
-   infoElement.appendChild(info4)
-
-   MathJax.typesetPromise() //style all new mathml because mathjax otherwise only runs on page load
-   changeImage("Blank.svg")
 }
 
 function changeFields() {
@@ -141,7 +161,7 @@ function changeFields() {
    sideAInput.setAttribute("type", "number")
    sideAInput.setAttribute("placeholder", "Enter value")
    sideAInput.setAttribute("ID", "sideAInput")
-   sideAInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   sideAInput.setAttribute("onkeyup", "calculateSines(event)")
    sideAInput.setAttribute("onfocus", "changeImage('SideABlue.svg')")
 
    let sideACombo = document.createElement("div")
@@ -157,7 +177,7 @@ function changeFields() {
    sideBInput.setAttribute("type", "number")
    sideBInput.setAttribute("placeholder", "Enter value")
    sideBInput.setAttribute("ID", "sideBInput")
-   sideBInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   sideBInput.setAttribute("onkeyup", "calculateSines(event)")
    sideBInput.setAttribute("onfocus", "changeImage('SideBBlue.svg')")
 
    let sideBCombo = document.createElement("div")
@@ -173,7 +193,7 @@ function changeFields() {
    alphaInput.setAttribute("type", "number")
    alphaInput.setAttribute("placeholder", "Enter value")
    alphaInput.setAttribute("ID", "alphaInput")
-   alphaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   alphaInput.setAttribute("onkeyup", "calculateSines(event)")
    alphaInput.setAttribute("onfocus", "changeImage('AngleAlphaBlue.svg')")
 
    let alphaCombo = document.createElement("div")
@@ -189,7 +209,7 @@ function changeFields() {
    betaInput.setAttribute("type", "number")
    betaInput.setAttribute("placeholder", "Enter value")
    betaInput.setAttribute("ID", "betaInput")
-   betaInput.setAttribute("onkeyup", "if (event.key === 'Enter') calculateSines()")
+   betaInput.setAttribute("onkeyup", "calculateSines(event)")
    betaInput.setAttribute("onfocus", "changeImage('AngleBetaBlue.svg')")
 
    let betaCombo = document.createElement("div")
