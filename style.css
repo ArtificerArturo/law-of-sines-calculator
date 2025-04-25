@@ -24,14 +24,13 @@
 #sinesCalculator #selectAndInputs {
    display: flex;
    flex-direction: column;
-   gap: 10px;
+   gap: 15px;
 }
 
 #sinesCalculator #imageAndResult {
    display: flex;
    flex-direction: column;
    justify-content: flex-end;
-   gap: 5px;
 }
 
 #sinesCalculator select {
@@ -45,8 +44,9 @@
    text-wrap: wrap;
    display: flex;
    justify-content: flex-start;
+   align-items: center;
    padding-left: 50px;
-   height: 24px;
+   height: 34px;
 }
 
 #sinesCalculator input {
