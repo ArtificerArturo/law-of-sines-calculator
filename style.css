@@ -1,5 +1,5 @@
 #sinesCalculator {
-   max-width: 600px;
+   width: 600px;
    margin: 0 auto;
    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -30,7 +30,7 @@
 #sinesCalculator #imageAndResult {
    display: flex;
    flex-direction: column;
-   justify-content: flex-end;
+   justify-content: space-around;
 }
 
 #sinesCalculator select {
@@ -53,7 +53,7 @@
    padding: 10px;
    background-color: white;
    border: solid 1px #cbcbcb;
-   width: 111px;
+   width: 131px;
 }
 
 #sinesCalculator #inputFields {
@@ -77,6 +77,7 @@
    display: flex;
    flex-direction: column;
    gap: 10px;
+   max-width: 500px;
 }
 
 #sinesCalculator img {
