@@ -1,5 +1,5 @@
 #sinesCalculator {
-   max-width: 550px;
+   max-width: 600px;
    margin: 0 auto;
    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -16,19 +16,22 @@
    gap: 20px;
 }
 
-#sinesCalculator #selectAndResult {
+#sinesCalculator #leftAndRight {
    display: flex;
-   width: 100%;
-   justify-content: center;
+   gap: 10px;
 }
 
-#sinesCalculator #dropdownDiv {
+#sinesCalculator #selectAndInputs {
    display: flex;
-   justify-content: flex-start;
-   align-items: center;
-   width: 50%;
+   flex-direction: column;
+   gap: 10px;
+}
+
+#sinesCalculator #imageAndResult {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
    gap: 5px;
-   padding-left: 30px;
 }
 
 #sinesCalculator select {
@@ -37,19 +40,13 @@
    width: 111px;
 }
 
-#sinesCalculator #resultDiv {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 50%;
-   padding-right: 70px;
-}
-
 #sinesCalculator .result {
    font-weight: 700;
    text-wrap: wrap;
    display: flex;
-   justify-content: center;
+   justify-content: flex-start;
+   padding-left: 50px;
+   height: 24px;
 }
 
 #sinesCalculator input {
@@ -74,13 +71,6 @@
    justify-content: space-between;
    align-items: center;
    gap: 5px;
-}
-
-#sinesCalculator #imageContainer {
-   display: flex;
-   align-items: center;
-   flex-wrap: wrap;
-   gap: 20px;
 }
 
 #sinesCalculator .info {
